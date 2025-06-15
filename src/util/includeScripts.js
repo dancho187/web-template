@@ -20,8 +20,8 @@ export const IncludeScripts = props => {
   const { googleAnalyticsId, plausibleDomains } = analytics;
 
   const { mapProvider, googleMapsAPIKey, mapboxAccessToken } = maps || {};
-  const isGoogleMapsInUse = mapProvider === 'googleMaps';
-  const isMapboxInUse = mapProvider === 'mapbox';
+  const isGoogleMapsInUse = false; //mapProvider === 'googleMaps';
+  const isMapboxInUse = false; // mapProvider === 'mapbox';
 
   // Add Google Analytics script if correct id exists (it should start with 'G-' prefix)
   // See: https://developers.google.com/analytics/devguides/collection/gtagjs
@@ -67,6 +67,16 @@ export const IncludeScripts = props => {
     );
   }
 
+  analyticsLibraries.push(
+    <script nonce="6770d74824cc53512837f5654ab230448eb462060b125345d743c1a60c4229d5">
+      {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TDW76S9S');`}
+    </script>
+  );
+
   if (googleAnalyticsId && hasGoogleAnalyticsv4Id) {
     // Google Analytics: gtag.js
     // NOTE: This template is a single-page application (SPA).
@@ -96,31 +106,31 @@ export const IncludeScripts = props => {
   }
 
   // FB script start
-  
-  analyticsLibraries.push(
-    <script 
-      key='fb'
-      nonce="6770d74824cc53512837f5654ab230448eb462060b125345d743c1a60c4229d5"
-    >
-      {`
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1780513916058675');
-        fbq('track', 'PageView');
-      `}
-    </script>
-  )
-  analyticsLibraries.push(
-    <noscript key='fb-img'>{`<img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1780513916058675&ev=PageView&noscript=1"
-    />`}</noscript>
-  )
+
+  // analyticsLibraries.push(
+  //   <script
+  //     key='fb'
+  //     nonce="6770d74824cc53512837f5654ab230448eb462060b125345d743c1a60c4229d5"
+  //   >
+  //     {`
+  //       !function(f,b,e,v,n,t,s)
+  //       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  //       n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  //       if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  //       n.queue=[];t=b.createElement(e);t.async=!0;
+  //       t.src=v;s=b.getElementsByTagName(e)[0];
+  //       s.parentNode.insertBefore(t,s)}(window, document,'script',
+  //       'https://connect.facebook.net/en_US/fbevents.js');
+  //       fbq('init', '1780513916058675');
+  //       fbq('track', 'PageView');
+  //     `}
+  //   </script>
+  // )
+  // analyticsLibraries.push(
+  //   <noscript key='fb-img'>{`<img height="1" width="1" style="display:none"
+  //   src="https://www.facebook.com/tr?id=1780513916058675&ev=PageView&noscript=1"
+  //   />`}</noscript>
+  // )
 
   // FB script end
 
