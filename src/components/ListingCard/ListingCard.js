@@ -20,10 +20,43 @@ import css from './ListingCard.module.css';
 
 const MIN_LENGTH_FOR_LONG_WORDS = 10;
 
+// const priceData = (price, currency, intl) => {
+//   if (price && price.currency === currency) {
+//     const formattedPrice = formatMoney(intl, price);
+
+//     const eurValue = (price.amount / 100 / 1.95583).toFixed(2);
+//     const formattedPriceEUR = `€${eurValue}`;
+
+//     return { formattedPrice, formattedPriceEUR, priceTitle: formattedPrice };
+//   } else if (price) {
+//     return {
+//       formattedPrice: intl.formatMessage(
+//         { id: 'ListingCard.unsupportedPrice' },
+//         { currency: price.currency }
+//       ),
+//       priceTitle: intl.formatMessage(
+//         { id: 'ListingCard.unsupportedPriceTitle' },
+//         { currency: price.currency }
+//       ),
+//     };
+//   }
+//   return {};
+// };
+
 const priceData = (price, currency, intl) => {
   if (price && price.currency === currency) {
+    // Format original price in BGN
     const formattedPrice = formatMoney(intl, price);
-    return { formattedPrice, priceTitle: formattedPrice };
+
+    // Convert to EUR with decimals
+    const eurValue = (price.amount / 100 / 1.95583).toFixed(2);
+    const formattedPriceEUR = `€${eurValue}`;
+
+    return {
+      formattedPrice,        // BGN
+      formattedPriceEUR,     // EUR
+      priceTitle: formattedPrice,
+    };
   } else if (price) {
     return {
       formattedPrice: intl.formatMessage(
@@ -56,7 +89,7 @@ const PriceMaybe = props => {
   return (
     <div className={css.price}>
       <div className={css.priceValue} title={priceTitle}>
-        {formattedPrice}
+        {formattedPrice} | € {(Number(price.amount) / 100 / 1.95583).toFixed(2)}
       </div>
       {isBookable ? (
         <div className={css.perUnit}>
