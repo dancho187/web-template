@@ -551,7 +551,7 @@ class EditListingWizard extends Component {
     const requirementsMissing =
       stripeAccount &&
       (hasRequirements(stripeAccountData, 'past_due') ||
-        hasRequirements(stripeAccountData, 'eventually_due));
+        hasRequirements(stripeAccountData, 'eventually_due'));
 
     const savedCountry = stripeAccountData ? stripeAccountData.country : null;
 
