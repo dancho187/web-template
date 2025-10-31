@@ -284,7 +284,7 @@ export const getStripeConnectAccountLink = params => (dispatch, getState, sdk) =
       successURL,
       type,
       collectionOptions: {
-        fields: 'eventually_due',
+        fields: 'currently_due',
         future_requirements: 'include',
       },
     })
